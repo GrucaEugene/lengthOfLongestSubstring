@@ -1,28 +1,28 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static int lengthOfLongestSubstring(String s) {
         if (s.length() == 0) return 0;
-        Set<Character> currentSet = new HashSet<>();
+        Map<Character, Integer> currentSet = new HashMap<>();
         int longest = 0;
         int startIndex = 0;
         for (int i = startIndex; i < s.length(); ) {
-            if (i == s.length() - 1 && !currentSet.contains(s.charAt(i))) {
-                currentSet.add(s.charAt(i));
+            if (i == s.length() - 1 && currentSet.get(s.charAt(i)) == null) {
+                currentSet.put(s.charAt(i), 1);
                 longest = Math.max(currentSet.size(), longest);
                 return longest;
-            } else if (i == s.length() - 1 && currentSet.contains(s.charAt(i))){
+            } else if (i == s.length() - 1 && currentSet.get(s.charAt(i)) != null){
                 longest = Math.max(currentSet.size(), longest);
                 return longest;
-            } else if (currentSet.contains(s.charAt(i))) {
+            } else if (currentSet.get(s.charAt(i)) != null) {
                 longest = Math.max(currentSet.size(), longest);
                 currentSet.clear();
                 startIndex++;
                 i = startIndex;
                 continue;
             }
-            currentSet.add(s.charAt(i));
+            currentSet.put(s.charAt(i), currentSet.getOrDefault(s.charAt(i), 1));
             i++;
         }
         return longest;
@@ -30,7 +30,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("abcabcbb"));
+        System.out.println(lengthOfLongestSubstring("adfa"));
     }
 }
 
