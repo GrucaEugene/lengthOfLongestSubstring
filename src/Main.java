@@ -3,26 +3,34 @@ import java.util.Set;
 
 public class Main {
     public static int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) return 0;
         Set<Character> currentSet = new HashSet<>();
-        char[] arr = s.toCharArray();
         int longest = 0;
-        boolean duplicateHappened = false;
-        for (int i = 0; i < arr.length; i++) {
-            if(currentSet.contains(arr[i])) {
-                duplicateHappened = true;
+        int startIndex = 0;
+        for (int i = startIndex; i < s.length(); ) {
+            if (i == s.length() - 1 && !currentSet.contains(s.charAt(i))) {
+                currentSet.add(s.charAt(i));
+                longest = Math.max(currentSet.size(), longest);
+                return longest;
+            } else if (i == s.length() - 1 && currentSet.contains(s.charAt(i))){
+                longest = Math.max(currentSet.size(), longest);
+                return longest;
+            } else if (currentSet.contains(s.charAt(i))) {
                 longest = Math.max(currentSet.size(), longest);
                 currentSet.clear();
-                currentSet.add(arr[i]);
+                startIndex++;
+                i = startIndex;
                 continue;
-            } currentSet.add(arr[i]);
+            }
+            currentSet.add(s.charAt(i));
+            i++;
+        }
+        return longest;
 
-        } return duplicateHappened ? longest: s.length();
     }
 
     public static void main(String[] args) {
-
-        System.out.println(lengthOfLongestSubstring("aab"));
-
+        System.out.println(lengthOfLongestSubstring("abcabcbb"));
     }
 }
 
