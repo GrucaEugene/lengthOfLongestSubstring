@@ -19,7 +19,7 @@ public class Main {
                 i = startIndex;
                 continue;
             }
-            currentSet.put(s.charAt(i), currentSet.getOrDefault(s.charAt(i), 1));
+            currentSet.put(s.charAt(i), 1);
             i++;
         }
         return longest;
