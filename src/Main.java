@@ -4,22 +4,22 @@ import java.util.Map;
 public class Main {
     public static int lengthOfLongestSubstring(String s) {
         if (s.length() == 0) return 0;
-        Map<Character, Integer> currentSet = new HashMap<>();
+        Map<Character, Integer> currentString = new HashMap<>();
         int longest = 0;
         int startIndex = 0;
         for (int i = startIndex; i < s.length(); ) {
-            if (i == s.length() - 1 && currentSet.get(s.charAt(i)) == null) {
-                currentSet.put(s.charAt(i), 1);
-                longest = Math.max(currentSet.size(), longest);
+            if (i == s.length() - 1 && currentString.get(s.charAt(i)) == null) {
+                currentString.put(s.charAt(i), 1);
+                longest = Math.max(currentString.size(), longest);
                 return longest;
-            } else if (currentSet.get(s.charAt(i)) != null) {
-                longest = Math.max(currentSet.size(), longest);
-                currentSet.clear();
+            } else if (currentString.get(s.charAt(i)) != null) {
+                longest = Math.max(currentString.size(), longest);
+                currentString.clear();
                 startIndex++;
                 i = startIndex;
                 continue;
             }
-            currentSet.put(s.charAt(i), 1);
+            currentString.put(s.charAt(i), 1);
             i++;
         }
         return longest;
